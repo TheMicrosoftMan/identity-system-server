@@ -10,9 +10,8 @@ router.post("/", (req, res) => {
   const predictResult = predict(req.body.text);
   const obj = {
     text: req.body.text,
-    author: predictResult
+    predict: predictResult
   };
-  console.log(obj);
   res.send(obj);
 });
 
