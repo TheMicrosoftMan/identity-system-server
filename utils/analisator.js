@@ -1,4 +1,4 @@
-const Classifier = require("wink-naive-bayes-text-classifier");
+const Classifier = require("./naive-bayes-text-classifier");
 const nbc = Classifier();
 const nlp = require("wink-nlp-utils");
 
@@ -22,6 +22,9 @@ for (let i = 0; i < data.data.length; i++) {
 
 nbc.consolidate();
 
-console.log("Training completed");
+const textToPredict =
+  "I am enough of an artist to draw freely upon my imagination";
 
-module.exports = nbc.predict;
+const predictedText = nbc.predict(textToPredict);
+
+console.log(predictedText);

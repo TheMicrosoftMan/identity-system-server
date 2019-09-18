@@ -11,6 +11,6 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "wink-naive-bayes-text-classifier": "^2.0.1"
+    "wink-nlp-utils": "^2.0.5"
   }
 }
