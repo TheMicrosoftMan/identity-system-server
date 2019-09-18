@@ -1,0 +1,16 @@
+{
+  "name": "identity-system-server",
+  "version": "1.0.0",
+  "description": "Server of identity system based on text analysis",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TheMicrosoftMan",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "wink-naive-bayes-text-classifier": "^2.0.1"
+  }
+}
