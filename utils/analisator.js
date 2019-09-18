@@ -1,6 +1,7 @@
 const Classifier = require("./naive-bayes-text-classifier");
 const nbc = Classifier();
 const nlp = require("wink-nlp-utils");
+const sentiment = require("./sentiment-analysis");
 
 const data = require("../data/data.json");
 
@@ -15,7 +16,6 @@ nbc.defineConfig({
   smoothingFactor: 0.5
 });
 
-nbc.defineConfig({ considerOnlyPresence: true, smoothingFactor: 0.5 });
 for (let i = 0; i < data.data.length; i++) {
   nbc.learn(data.data[i].quote, data.data[i].author);
 }
@@ -23,8 +23,9 @@ for (let i = 0; i < data.data.length; i++) {
 nbc.consolidate();
 
 const textToPredict =
-  "I am enough of an artist to draw freely upon my imagination";
+  "cats are stupid. cats are not stupid";
 
-const predictedText = nbc.predict(textToPredict);
+const predictedAuthor = nbc.predict(textToPredict);
+const predictedSentiment = sentiment(textToPredict);
 
-console.log(predictedText);
+console.log(predictedAuthor, predictedSentiment);
