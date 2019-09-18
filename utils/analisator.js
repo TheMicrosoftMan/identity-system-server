@@ -1,4 +1,4 @@
-const Classifier = require("wink-naive-bayes-text-classifier");
+const Classifier = require("./naive-bayes-text-classifier");
 const nbc = Classifier();
 const nlp = require("wink-nlp-utils");
 
