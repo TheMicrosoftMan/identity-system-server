@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const predict = require("../utils/analisator");
+const predict = require("../analisator");
 
 router.get("/", (req, res) => {
   res.send("All working");
