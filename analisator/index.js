@@ -37,10 +37,12 @@ console.log("Training complete.");
 console.log("Naive Bayes text classifier is ready.");
 
 const predict = text => {
-  const predictAuthor = nbc.predict(text);
+  const possibleAuthors = nbc.predict(text);
+  const predictAuthor = possibleAuthors[0][0];
   const predictSentiment = sentiment(text);
   return {
     author: predictAuthor,
+    possibleAuthors,
     sentiment: predictSentiment
   };
 };

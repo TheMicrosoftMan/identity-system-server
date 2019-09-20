@@ -1,0 +1,20 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-unused-vars": "warn",
+        "no-undef": "warn",
+        "no-debugger": "warn",
+        "eqeqeq": ["error", "smart"],
+        "no-dupe-args": "error",
+        "no-multi-spaces": ["warn", { "ignoreEOLComments": true }],
+        "key-spacing": "warn",
+        "quotes": ["warn", "double", { "allowTemplateLiterals": true }]
+    }
+}

@@ -476,7 +476,8 @@ var naiveBayesTextClassifier = function() {
   var predict = function(input) {
     // Contains label & the corresponding odds pairs.
     var allOdds = computeOdds(input);
-    return allOdds[0][0];
+    var tenFirstOdds = allOdds.slice(0, 10);
+    return tenFirstOdds;
   }; // predict()
 
   // #### Stats
