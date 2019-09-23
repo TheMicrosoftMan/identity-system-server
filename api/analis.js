@@ -7,11 +7,13 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const predictResult = predict(req.body.text);
+  const text = req.body.text;
+  const predictResult = predict(text);
   const obj = {
-    text: req.body.text,
+    text: text,
     predict: predictResult
   };
+  console.log(`${text} - ${predictResult.author}`);
   res.send(obj);
 });
 
