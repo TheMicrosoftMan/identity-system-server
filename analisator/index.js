@@ -36,6 +36,13 @@ console.timeEnd("Training");
 console.log("Training complete.");
 console.log("Naive Bayes text classifier is ready.");
 
+console.log("Getting statistic");
+const stats = utils.getStats(pathsToData, nbc);
+console.log("Statistic:");
+console.log(
+  `\tAuthors count: ${stats.authorsCount}\n\tText count: ${stats.textsCount}\n\tWords Count: ${stats.wordsCount}`
+);
+
 const predict = text => {
   const possibleAuthors = nbc.predict(text);
   const predictAuthor = possibleAuthors[0][0];
