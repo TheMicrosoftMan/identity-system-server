@@ -54,4 +54,4 @@ const predict = text => {
   };
 };
 
-module.exports = predict;
+module.exports = { predict, stats };

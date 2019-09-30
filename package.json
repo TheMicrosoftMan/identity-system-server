@@ -4,7 +4,7 @@
   "description": "Server of identity system based on text analysis",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app"
   },
   "author": "TheMicrosoftMan",
   "license": "ISC",
