@@ -7,6 +7,8 @@ const getStats = (filesPaths, nbc) => {
     avgLength: 0
   };
 
+  let datasets = [];
+
   filesPaths.forEach(file => {
     const JSONString = fs.readFileSync(file);
     const dataset = JSON.parse(JSONString);
@@ -19,11 +21,13 @@ const getStats = (filesPaths, nbc) => {
         stats.minLength = textLength;
       }
     });
+    datasets.push(dataset.name);
   });
   stats.avgLength = stats.maxLength / stats.minLength;
 
   const nbcStats = nbc.stats();
 
+  stats.datasets = datasets;
   stats.authorsTexts = nbcStats.labelWiseSamples; // кількість текстів кожного автора
   stats.authorsWords = nbcStats.labelWiseWords; // кілкість слів у текстах кожного автора
   stats.textsCount = 0; // загальна кількість текстів

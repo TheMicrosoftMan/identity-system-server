@@ -1,52 +1,55 @@
 const Classifier = require("./naive-bayes-text-classifier");
-const nbc = Classifier();
 const nlp = require("wink-nlp-utils");
 const analizeUtils = require("./utils");
 const sentiment = require("./sentiment-analysis");
 
 const utils = require("../utils");
 
-const pathsToData = utils.getDataFiles();
+const initNBC = pathsToData => {
+  const nbc = Classifier();
 
-nbc.definePrepTasks([
-  analizeUtils.tokenize,
-  nlp.tokens.removeWords,
-  analizeUtils.ukrstem,
-  nlp.tokens.stem
-]);
+  nbc.definePrepTasks([
+    analizeUtils.tokenize,
+    nlp.tokens.removeWords,
+    analizeUtils.ukrstem,
+    nlp.tokens.stem
+  ]);
 
-nbc.defineConfig({
-  considerOnlyPresence: true,
-  smoothingFactor: 0.5
-});
+  nbc.defineConfig({
+    considerOnlyPresence: true,
+    smoothingFactor: 0.5
+  });
 
-console.log("Training start.");
-console.time("Training");
+  console.log("Training start.");
+  console.time("Training");
 
-pathsToData.forEach(trainingFile => {
-  const data = require(trainingFile);
-  for (let i = 0; i < data.data.length; i++) {
-    nbc.learn(data.data[i].text, data.data[i].author);
-  }
-});
+  pathsToData.forEach(trainingFile => {
+    const data = require(trainingFile);
+    for (let i = 0; i < data.data.length; i++) {
+      nbc.learn(data.data[i].text, data.data[i].author);
+    }
+  });
 
-nbc.consolidate();
+  nbc.consolidate();
 
-console.timeEnd("Training");
-console.log("Training complete.");
-console.log("Naive Bayes text classifier is ready.");
+  console.timeEnd("Training");
+  console.log("Training complete.");
+  console.log("Naive Bayes text classifier is ready.");
 
-console.log("Getting statistic");
-const stats = utils.getStats(pathsToData, nbc);
-console.log("Statistic:");
-console.log(
-  `\tAuthors count: ${stats.authorsCount}\n\tText count: ${stats.textsCount}\n\tWords Count: ${stats.wordsCount}`
-);
+  return nbc;
+};
 
-const predict = text => {
+const stats = (nbc, pathsToData) => {
+  const stats = utils.getStats(pathsToData, nbc);
+
+  return stats;
+};
+
+const predict = (nbc, text) => {
   const possibleAuthors = nbc.predict(text);
   const predictAuthor = possibleAuthors[0][0];
   const predictSentiment = sentiment(text);
+
   return {
     author: predictAuthor,
     possibleAuthors,
@@ -54,4 +57,4 @@ const predict = text => {
   };
 };
 
-module.exports = { predict, stats };
+module.exports = { initNBC, predict, stats };
