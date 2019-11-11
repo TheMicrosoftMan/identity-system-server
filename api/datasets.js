@@ -1,33 +1,30 @@
 const express = require("express");
 const router = express.Router();
-const utils = require("../utils");
-const path = require("path");
-
-const pathToData = "./data";
-const directoryPath = path.resolve(pathToData);
-
-let datasetsCounter = 0;
+const csv = require("csvtojson");
+const analisator = require("../analisator");
 
 router.post("/", (req, res) => {
   if (req.files === null) {
     return res.status(400).json({ msg: "No file uploaded" });
   }
 
-  utils.clearDatasets();
-
+  const text = req.body.text;
   const file = req.files.file;
 
-  file.mv(
-    `${directoryPath}/userdataset${++datasetsCounter}.${file.name}`,
-    err => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send(err);
-      }
+  const stringFile = file.data.toString();
 
-      res.json({ status: "OK" });
-    }
-  );
+  csv()
+    .fromString(stringFile)
+    .then(data => {
+      const nbc = analisator.initNBCFromCSV(data);
+      const predictResult = analisator.predict(nbc, text);
+      const obj = {
+        text: text,
+        predict: predictResult
+      };
+      console.log(`${text} - ${predictResult.author}`);
+      res.send(obj);
+    });
 });
 
 module.exports = router;

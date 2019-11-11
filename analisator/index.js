@@ -39,6 +39,37 @@ const initNBC = pathsToData => {
   return nbc;
 };
 
+const initNBCFromCSV = csv => {
+  const nbc = Classifier();
+
+  nbc.definePrepTasks([
+    analizeUtils.tokenize,
+    nlp.tokens.removeWords,
+    analizeUtils.ukrstem,
+    nlp.tokens.stem
+  ]);
+
+  nbc.defineConfig({
+    considerOnlyPresence: true,
+    smoothingFactor: 0.5
+  });
+
+  console.log("Training start.");
+  console.time("Training");
+
+  csv.forEach(el => {
+    nbc.learn(el.text, el.author);
+  });
+
+  nbc.consolidate();
+
+  console.timeEnd("Training");
+  console.log("Training complete.");
+  console.log("Naive Bayes text classifier is ready.");
+
+  return nbc;
+};
+
 const stats = (nbc, pathsToData) => {
   const stats = utils.getStats(pathsToData, nbc);
 
@@ -57,4 +88,4 @@ const predict = (nbc, text) => {
   };
 };
 
-module.exports = { initNBC, predict, stats };
+module.exports = { initNBC, initNBCFromCSV, predict, stats };

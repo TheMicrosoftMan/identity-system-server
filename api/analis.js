@@ -5,13 +5,8 @@ const analisator = require("../analisator");
 const utils = require("../utils");
 const pathsToData = utils.getDataFiles();
 
-let nbc = analisator.initNBC(pathsToData);
-
-router.get("/", (req, res) => {
-  res.send(analisator.stats(nbc, pathsToData));
-});
-
 router.post("/", (req, res) => {
+  let nbc = analisator.initNBC(pathsToData);
   const text = req.body.text;
   const predictResult = analisator.predict(nbc, text);
   const obj = {
