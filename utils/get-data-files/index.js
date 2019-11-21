@@ -1,15 +1,26 @@
 const pathToData = "./data";
+const pathToExamples = "./examples";
 
 const fs = require("fs");
 const path = require("path");
-const directoryPath = path.resolve(pathToData);
+const dataDirectoryPath = path.resolve(pathToData);
+const examplesDirectoryPath = path.resolve(pathToExamples);
 
 const getDataFiles = () => {
   const pathsFilesArr = [];
-  fs.readdirSync(directoryPath).forEach(file => {
-    pathsFilesArr.push(path.join(directoryPath, file));
+  fs.readdirSync(dataDirectoryPath).forEach(file => {
+    pathsFilesArr.push(path.join(dataDirectoryPath, file));
   });
   return pathsFilesArr;
 };
 
+const getExampleFile = () => {
+  let exampleFilesArr = [];
+  fs.readdirSync(examplesDirectoryPath).forEach(file => {
+    exampleFilesArr.push(path.join(examplesDirectoryPath, file));
+  });
+  return exampleFilesArr;
+};
+
 module.exports = getDataFiles;
+module.exports = getExampleFile;

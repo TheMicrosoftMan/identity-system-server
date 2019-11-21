@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const csv = require("csvtojson");
 const analisator = require("../analisator");
+const utils = require("../utils");
 
 router.post("/", (req, res) => {
   if (req.files === null) {
@@ -25,6 +26,11 @@ router.post("/", (req, res) => {
       console.log(`${text} - ${predictResult.author}`);
       res.send(obj);
     });
+});
+
+router.get("/example", (req, res) => {
+  const exampleFile = utils.getExampleFile()[0];
+  res.download(exampleFile);
 });
 
 module.exports = router;
