@@ -22,5 +22,4 @@ const getExampleFile = () => {
   return exampleFilesArr;
 };
 
-module.exports = getDataFiles;
-module.exports = getExampleFile;
+module.exports = { getDataFiles, getExampleFile };
