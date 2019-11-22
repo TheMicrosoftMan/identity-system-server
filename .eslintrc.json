@@ -1,10 +1,11 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true
+        "commonjs": true,
+        "es6": true
     },
     "parserOptions": {
-        "ecmaVersion": 6
+        "ecmaVersion": 2019
     },
     "extends": "eslint:recommended",
     "rules": {

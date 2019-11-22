@@ -76,10 +76,10 @@ const stats = (nbc, pathsToData) => {
   return stats;
 };
 
-const predict = (nbc, text) => {
+const predict = async (nbc, text) => {
   const possibleAuthors = nbc.predict(text);
   const predictAuthor = possibleAuthors[0][0];
-  const predictSentiment = sentiment(text);
+  const predictSentiment = await sentiment(text);
 
   return {
     author: predictAuthor,

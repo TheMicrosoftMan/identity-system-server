@@ -18,13 +18,14 @@ router.post("/", (req, res) => {
     .fromString(stringFile)
     .then(data => {
       const nbc = analisator.initNBCFromCSV(data);
-      const predictResult = analisator.predict(nbc, text);
-      const obj = {
-        text: text,
-        predict: predictResult
-      };
-      console.log(`${text} - ${predictResult.author}`);
-      res.send(obj);
+      analisator.predict(nbc, text).then(predictResult => {
+        const obj = {
+          text: text,
+          predict: predictResult
+        };
+        console.log(`${text} - ${predictResult.author}`);
+        res.send(obj);
+      });
     });
 });
 
