@@ -8,13 +8,14 @@ const pathsToData = utils.getDataFiles();
 router.post("/", (req, res) => {
   let nbc = analisator.initNBC(pathsToData);
   const text = req.body.text;
-  const predictResult = analisator.predict(nbc, text);
-  const obj = {
-    text: text,
-    predict: predictResult
-  };
-  console.log(`${text} - ${predictResult.author}`);
-  res.send(obj);
+  analisator.predict(nbc, text).then(predictResult => {
+    const obj = {
+      text: text,
+      predict: predictResult
+    };
+    console.log(`${text} - ${predictResult.author}`);
+    res.send(obj);
+  });
 });
 
 module.exports = router;
